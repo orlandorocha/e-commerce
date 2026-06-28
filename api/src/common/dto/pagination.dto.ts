@@ -36,7 +36,14 @@ export class PaginationQueryDto {
   get skip(): number {
     return (this.page - 1) * this.limit;
   }
+
+  get take(): number {
+    return this.limit;
+  }
 }
+
+/** Alias usado pelos módulos de catálogo/pedidos. */
+export class PaginationDto extends PaginationQueryDto {}
 
 export interface PaginatedResult<T> {
   data: T[];
