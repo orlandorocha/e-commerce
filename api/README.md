@@ -135,3 +135,50 @@ docker compose up --build
 | `npm run prisma:deploy` | Aplicar migrations (produção)         |
 | `npm run prisma:studio` | Prisma Studio (GUI do banco)          |
 | `npm run seed`          | Popular dados iniciais                |
+
+## Troubleshooting
+
+### `prisma generate` falha com `unable to get local issuer certificate`
+
+Isso ocorre em redes corporativas com inspeção de SSL (proxy que substitui o
+certificado). O Node não reconhece a CA raiz interna ao baixar os engines do
+Prisma. Escolha **uma** das opções:
+
+**Opção A — Apontar o Node para a CA corporativa (recomendado e seguro)**
+
+1. Exporte o certificado raiz da sua empresa em formato `.pem` (peça ao time de
+   TI ou exporte pelo navegador).
+2. Defina a variável de ambiente apontando para o arquivo e gere o client:
+
+   ```powershell
+   # Windows (PowerShell)
+   $env:NODE_EXTRA_CA_CERTS="C:\caminho\para\corp-root-ca.pem"
+   npx prisma generate
+   ```
+
+   ```bash
+   # macOS / Linux
+   export NODE_EXTRA_CA_CERTS=/caminho/para/corp-root-ca.pem
+   npx prisma generate
+   ```
+
+   Para tornar permanente no Windows, adicione `NODE_EXTRA_CA_CERTS` nas
+   variáveis de ambiente do usuário.
+
+**Opção B — Desabilitar a verificação TLS temporariamente (inseguro)**
+
+Use apenas em máquina de desenvolvimento, nunca em produção:
+
+```powershell
+# Windows (PowerShell)
+$env:NODE_TLS_REJECT_UNAUTHORIZED="0"
+npx prisma generate
+```
+
+```bash
+# macOS / Linux
+NODE_TLS_REJECT_UNAUTHORIZED=0 npx prisma generate
+```
+
+Depois que os engines forem baixados uma vez, ficam em cache e o
+`prisma generate` não tenta baixar novamente.
