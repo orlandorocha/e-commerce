@@ -27,6 +27,15 @@
       "@database/*": ["src/database/*"]
     }
   },
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "CommonJS"
+    },
+    "moduleTypes": {
+      "prisma/seed.ts": "cjs"
+    }
+  },
   "include": ["src/**/*", "prisma/**/*"],
   "exclude": ["node_modules", "dist"]
 }
