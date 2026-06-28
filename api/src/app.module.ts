@@ -17,6 +17,13 @@ import { CouponsModule } from './modules/coupons/coupons.module';
 import { CartModule } from './modules/cart/cart.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { PaymentsModule } from './modules/payments/payments.module';
+import { ShippingModule } from './modules/shipping/shipping.module';
+import { ReviewsModule } from './modules/reviews/reviews.module';
+import { BlogModule } from './modules/blog/blog.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
+import { SettingsModule } from './modules/settings/settings.module';
+import { ReportsModule } from './modules/reports/reports.module';
 
 @Module({
   imports: [
@@ -45,6 +52,13 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
     CartModule,
     OrdersModule,
     DashboardModule,
+    PaymentsModule,
+    ShippingModule,
+    ReviewsModule,
+    BlogModule,
+    NotificationsModule,
+    SettingsModule,
+    ReportsModule,
   ],
   providers: [
     {
